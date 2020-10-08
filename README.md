@@ -54,8 +54,8 @@ The curated data set used in this project was provided by [Figure Eight Inc](htt
 
 
 ## Notes<a name="notes"></a> ##
-Most categories appear very few times in the data set. For example, there are no occurrences of the “child_alone” category. It is difficult to train a classifier for categories (labels) where data is imbalanced, and the resulting model should be used with caution. For example, the model will not flag a message related to a unaccompanied child.
-It is outside the scope of this project to correct for such imbalances.
+1. Most categories appear very few times in the data set. For example, there are no occurrences of the “child_alone” category. It is difficult to train a classifier for categories (labels) where data is imbalanced, and the resulting model should be used with caution. For example, the model will not flag a message related to a unaccompanied child. This is illustrated in a chart on the web page. It is outside the scope of this project to correct for such imbalances.
+2. Trial and error showed that different classifiers (Ridge Classifier, Ada Boost, Random Forest, Decision Tree) are best-suited for different categories. Ideally, the best classifier would be chosen for each individual category. This project uses the same classifier for all categories.
 
 
 ## File Descriptions<a name="file_descriptions"></a> ##
