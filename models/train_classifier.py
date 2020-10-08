@@ -137,6 +137,22 @@ def evaluate_model(model, X_test, Y_test, category_names):
     return
 
 
+def save_df(df, database_filepath, table_name):
+    '''
+    Save pandas dataframe to the specified database and table name.
+    If the table exists, it is deleted.
+    Inputs:
+        df: (pandas dataframe) dataframe to be saved
+        database_filepath: (string) database location
+        table_name: (string) table name for saving the statistics
+    Returns: None
+    '''
+    engine = create_engine('sqlite:///' + database_filepath)
+    df.to_sql(table_name, engine, index=False, if_exists='replace')
+        
+    return
+
+
 
 def save_model(model, model_filepath):
     '''
@@ -172,6 +188,23 @@ def main():
 
         print('Saving model...\n    MODEL: {}'.format(model_filepath))
         save_model(model, model_filepath)
+        
+        #####
+        # additionally, save three tables to the database for plotting on the web page:
+        # 1. training statistics
+        # 2. test statistics
+        # 3. the percentage of non-zero values for each category in the dataset
+        print('Saving training stats...\n   DATABASE: {}'.format(database_filepath))
+        save_df(make_classification_report(Y_train, model.predict(X_train)), database_filepath, 'train_stats')
+
+        print('Saving test stats...\n   DATABASE: {}'.format(database_filepath))
+        save_df(make_classification_report(Y_test, model.predict(X_test)), database_filepath, 'test_stats')
+                                                          
+        df_non_zero = pd.DataFrame(list(Y.mean()), columns=['pct_not_zero'])
+        df_non_zero['category'] = Y.columns
+        print('Saving non-zero stats...\n   DATABASE: {}'.format(database_filepath))
+        save_df(df_non_zero, database_filepath, 'pct_non_zero')
+        #####
 
         print('Trained model saved!')
 
