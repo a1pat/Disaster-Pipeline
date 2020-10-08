@@ -7,7 +7,7 @@ from nltk.tokenize import word_tokenize
 
 from flask import Flask
 from flask import render_template, request, jsonify
-from plotly.graph_objs import Bar
+from plotly.graph_objs import Bar, Line, Scatter
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
@@ -26,14 +26,17 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-###engine = create_engine('sqlite:///../data/YourDatabaseName.db')
-###df = pd.read_sql_table('YourTableName', engine)
 engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table('messages', engine)
 
 # load model
-###model = joblib.load("../models/your_model_name.pkl")
 model = joblib.load("../models/classifier.pkl")
+
+# load model training and test statistics
+df_train_stats = pd.read_sql_table('train_stats', engine).sort_values(['category'])
+df_test_stats = pd.read_sql_table('test_stats', engine).sort_values(['category'])
+df_cat_stats = pd.read_sql_table('pct_non_zero', engine).sort_values(['category'])
+
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -68,6 +71,41 @@ def index():
             }
         }
     ]
+    
+    ###
+    graphs.append(
+        {
+            'data': [
+                Bar(
+                    x=df_cat_stats['category'],
+                    y=df_cat_stats['pct_not_zero'],
+                    name='Pct non zero (all data)'
+                ),
+                Scatter(
+                    x=df_train_stats['category'],
+                    y=df_train_stats['fscore'],
+                    name='F1 (training set)'
+                ),
+                Scatter(
+                    x=df_test_stats['category'],
+                    y=df_test_stats['fscore'],
+                    name='F1 (test set)'
+                )
+            ],
+
+            'layout': {
+                'title': 'Training and Test F-scores and Category Occurrence Rate',
+                #'yaxis': {
+                #    'title': "Count"
+                #},
+                #'xaxis': {
+                #    'title': "Category"
+                #}
+                'margin': {'b':160}
+            }
+        }
+    )
+    ###
     
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
