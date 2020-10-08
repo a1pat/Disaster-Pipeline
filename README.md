@@ -116,4 +116,3 @@ The following python packages are used:
 2. [Figure Eight Inc](https://www.figure-eight.com) provided disaster_messages.csv and disaster_categories.csv;
 3. [Ashutosh A. Patwardhan](https://github.com/a1pat) coded process_data.py and train_classifier.py.
 
-<a href="http://www.udacity.com" target="_blank">Test</a>
