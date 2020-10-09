@@ -138,6 +138,39 @@ def index():
             }
         }
     )
+
+    graphs.append(
+        {
+            'data': [
+                Bar(
+                    x=df_cat_stats['category'],
+                    y=df_cat_stats['pct_not_zero'],
+                    name='Pct non zero (all data)'
+                ),
+                Scatter(
+                    x=df_train_stats['category'],
+                    y=df_train_stats['recall'],
+                    name='Precision (training set)'
+                ),
+                Scatter(
+                    x=df_test_stats['category'],
+                    y=df_test_stats['recall'],
+                    name='Precision (test set)'
+                )
+            ],
+
+            'layout': {
+                'title': 'Training and Test Model Recall and Category Occurrence Rate',
+                #'yaxis': {
+                #    'title': "Count"
+                #},
+                #'xaxis': {
+                #    'title': "Category"
+                #}
+                'margin': {'b':160}
+            }
+        }
+    )
 ###
     
     # encode plotly graphs in JSON
