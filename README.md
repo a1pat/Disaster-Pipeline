@@ -54,8 +54,14 @@ The curated data set used in this project was provided by [Figure Eight Inc](htt
 
 
 ## Discussion<a name="discussion"></a> ##
-1. Most categories appear very few times in the data set. For example, there are no occurrences of the “child_alone” category. It is difficult to train a classifier for categories (labels) where data is imbalanced, and the resulting model should be used with caution. For example, the model will not flag a message related to a unaccompanied child. This is illustrated in a chart on the web page. It is outside the scope of this project to correct for such imbalances.
+1. Most categories appear very few times in the data set. For example, there are no occurrences of the “child_alone” category. It is difficult to train a classifier for categories (labels) where data is imbalanced, and the resulting model should be used with caution. The *class_weight='balanced'* was tested to correct for imbalance but it did not perform uniformly - it benefite some categories, but hurt other categories. Ideally, after detailed testing, the flag could be set on a category-by-category basis. This tailoring was not done in this project.
 2. Trial and error showed that different classifiers (Ridge Classifier, Ada Boost, Random Forest, Decision Tree) are best-suited for different categories. Ideally, the best classifier would be chosen for each individual category. This project uses the same classifier for all categories.
+3. Using the f-score as a combined performance metric, RidgeClassifier performance is not uniform across categories. [fscore](https://github.com/a1pat/Disaster-Pipeline/blob/main/images/fscore.jpg)
+4. A plot of the **ocurrence rate** (the percentage of observations that contain a 1 for a category - a measure of imbalance) provides a first clue to the observed f-score. Categories with f-score of zero have a very low ocurrence rate. Correcting imbalance may improve fit quality as measured by the f-score (categories with ocurrence rate greater than 0.2 (20%) generally have a high f-score). [ocurrence rate](https://github.com/a1pat/Disaster-Pipeline/blob/main/images/ocurrence_rate.jpg)
+5. Additional insight is provided by the metrics bubble plot:
+  1. The training data is fit with high precision, but not the test data (orange bubbles are on the right-hand side of the plot, but scattered from top to bottom). The categories with low test precision also have low occurrence (small bubbles). This could be due to a combination of test set size (30% of the total data set) and imbalance.
+  2. The recall is adversely affected by imbalance - the smaller green bubbles are on the lower left. Many categories have a recall rate less than 50% - this means that less than half of the requests fo rhelp will be flagged as such. **Recall is clearly an area for improvement.**
+[metrics](https://github.com/a1pat/Disaster-Pipeline/blob/main/images/metrics.jpg)
 
 
 ## File Descriptions<a name="file_descriptions"></a> ##
