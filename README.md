@@ -4,21 +4,26 @@ Classify emergency messages (ML Pipeline Project for Udacity Data Scientist Nano
 
 ## Table of Contents ##
 1.	[Motivation](#motivation)
-2.	[Method](#method)
-3.	[Data](#data)
-4.	[Modeling Details](#modeling_details)
-5.	[Discussion](#discussion)
-6.	[File Descriptions](#file_descriptions)
-7.	[Libraries/Packages](#libraries_packages)
-8.	[Acknowledgements](#acknowledgements)
-9.  [Licensing](#licensing)
-10.  [Authors](#authors)
+2.  [**IMPORTANT NOTE**](#IMPORTANT_NOTE)
+3.	[Method](#method)
+4.	[Data](#data)
+5.	[Modeling Details](#modeling_details)
+6.	[Discussion](#discussion)
+7.	[File Descriptions](#file_descriptions)
+8.	[Libraries/Packages](#libraries_packages)
+9.	[Acknowledgements](#acknowledgements)
+10.  [Licensing](#licensing)
+11.  [Authors](#authors)
 
 
 ## Motivation<a name="motivation"></a> ##
 Millions of messages are continually sent directly or posted on social media. Following a disaster (flood, fire, earthquake, etc.), authorities and aid agencies process these messages to identify those relevant to the disaster – perhaps one message in a thousand.
 Aid organizations are often geared to meeting specific needs. Some specialize in food and water, some in clothing, others in medical supplies, and so on. Messages identified as being disaster-related must be routed to the appropriate organization depending upon the specific needs mentioned in the message.
 The sheer volume of messages makes it impossible for staff to monitor, filter and route messages, especially in the hours immediately following a disaster – an automatic mechanism is needed. The objective of this project is to build a model that is capable of processing a message to determine whether it is disaster-related, and to classify it according to the kind of situation identified and/or help requested. This information can then be used to provide the appropriate response.
+
+
+## **IMPORTANT NOTE**<a name="IMPORTANT_NOTE"></a> ##
+The data set from Figure Eight does not contain anything for the *child_alone* category. Though the project instructions as that a model be fit for each of the thirty-six categories, no model hs been for the *shild_alone* category as it would be meaningless.
 
 
 ## Method<a name="method"></a> ##
@@ -31,7 +36,7 @@ A two-step method is used in the current project:
 
 
 ## Data<a name="data"></a> ##
-The curated data set used in this project was provided by [Figure Eight Inc](https://www.figure-eight.com) through [Udacity](http://www.udacity.com). The data consists of almost thirty thousand messages. Each message is labeled as belonging (or not) to each of thirty six categories.
+The curated data set used in this project was provided by [Figure Eight Inc](https://www.figure-eight.com) through [Udacity](http://www.udacity.com). The data consists of almost thirty-thousand messages. Each message is labeled as belonging (or not) to each of thirty-six categories.
 
 
 ## Modeling Details<a name="modeling_details"></a> ##
@@ -75,7 +80,7 @@ The files/folders in the project's root folder are:
         * **run.py:** Web app back-end. Creates charts displayed on web page; runs classifier on message;
 *	**data** (folder)
     * **disaster_categories.csv:** message, original message, genre for each message;
-    * **disaster_messages.csv:** message is tagged as belonging to (1/0) each of thirty six pre-defined categories;
+    * **disaster_messages.csv:** message is tagged as belonging to (1/0) each of thirty-six pre-defined categories;
     * **DisasterResponse.db:** Database containing cleaned messages and categories from the ETL pipeline;
     * **process_data.py:** python code for the ETL pipeline;
 *	**models** (folder)
