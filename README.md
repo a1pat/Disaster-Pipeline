@@ -23,7 +23,7 @@ The sheer volume of messages makes it impossible for staff to monitor, filter an
 
 
 ## **IMPORTANT NOTE**<a name="IMPORTANT_NOTE"></a> ##
-The data set from Figure Eight does not contain anything for the *child_alone* category. Though the project instructions as that a model be fit for each of the thirty-six categories, no model hs been for the *shild_alone* category as it would be meaningless.
+The data set from Figure Eight does not contain anything for the *child_alone* category (only 0s, no 1s). Though the project instructions as that a model be fit for each of the thirty-six categories, no model hs been for the *child_alone* category as it would be meaningless.
 
 
 ## Method<a name="method"></a> ##
