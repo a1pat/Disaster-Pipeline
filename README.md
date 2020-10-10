@@ -81,6 +81,10 @@ The files/folders in the project's root folder are:
 *	**models** (folder)
     * **classifier.pkl:** Trained classifier;
     * **train_classifier.py:** python code for the NPL and ML pipelines. Reads from DisasterResponse.db and writes the model to classifier.pkl;
+*   **images** (folder)
+    * **fscore.jpg**: plot of training and test set fscore by category;
+    * **occurrence_rate.jpg**: plot of occurrence rate (measure of imbalance) by category;
+    * **metrics.jpg**: plot of training and test metrics (fscore, precision, recall);
 *	**README.md:** This document.
 
 **Run the following commands in the project's root directory to set up your database and model:**
