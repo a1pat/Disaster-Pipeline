@@ -1,5 +1,6 @@
 import json
 import plotly
+import numpy as np
 import pandas as pd
 
 from nltk.stem import WordNetLemmatizer
@@ -76,11 +77,6 @@ def index():
     graphs.append(
         {
             'data': [
-                Bar(
-                    x=df_cat_stats['category'],
-                    y=df_cat_stats['pct_not_zero'],
-                    name='Pct non zero (all data)'
-                ),
                 Scatter(
                     x=df_train_stats['category'],
                     y=df_train_stats['fscore'],
@@ -94,13 +90,13 @@ def index():
             ],
 
             'layout': {
-                'title': 'Training and Test F-scores and Category Occurrence Rate',
-                #'yaxis': {
-                #    'title': "Count"
-                #},
-                #'xaxis': {
-                #    'title': "Category"
-                #}
+                'title': 'Training and Test F-scores',
+                'yaxis': {
+                    'title': "F-score"
+                },
+                'xaxis': {
+                    'title': "Category"
+                },
                 'margin': {'b':160}
             }
         }
@@ -113,60 +109,56 @@ def index():
                     x=df_cat_stats['category'],
                     y=df_cat_stats['pct_not_zero'],
                     name='Pct non zero (all data)'
+                )
+            ],
+
+            'layout': {
+                'title': 'Category Occurrence Rate',
+                'yaxis': {
+                    'title': "Rate"
+                },
+                'xaxis': {
+                    'title': "Category"
+                },
+                'margin': {'b':160}
+            }
+        }
+    )
+
+    graphs.append(
+        {
+            'data': [
+                Scatter(
+                    x=df_train_stats['fscore'],
+                    y=df_test_stats['fscore'],
+                    mode='markers',
+                    marker=dict(size=((df_cat_stats['pct_not_zero']+0.1)*50), opacity=0.5),
+                    name='f1 score'
                 ),
                 Scatter(
-                    x=df_train_stats['category'],
-                    y=df_train_stats['precision'],
-                    name='Precision (training set)'
-                ),
-                Scatter(
-                    x=df_test_stats['category'],
+                    x=df_train_stats['precision'],
                     y=df_test_stats['precision'],
-                    name='Precision (test set)'
-                )
-            ],
-
-            'layout': {
-                'title': 'Training and Test Model Precision and Category Occurrence Rate',
-                #'yaxis': {
-                #    'title': "Count"
-                #},
-                #'xaxis': {
-                #    'title': "Category"
-                #}
-                'margin': {'b':160}
-            }
-        }
-    )
-
-    graphs.append(
-        {
-            'data': [
-                Bar(
-                    x=df_cat_stats['category'],
-                    y=df_cat_stats['pct_not_zero'],
-                    name='Pct non zero (all data)'
+                    mode='markers',
+                    marker=dict(size=((df_cat_stats['pct_not_zero']+0.1)*50), opacity=0.5),
+                    name='Precision'
                 ),
                 Scatter(
-                    x=df_train_stats['category'],
-                    y=df_train_stats['recall'],
-                    name='Precision (training set)'
-                ),
-                Scatter(
-                    x=df_test_stats['category'],
+                    x=df_train_stats['recall'],
                     y=df_test_stats['recall'],
-                    name='Precision (test set)'
+                    mode='markers',
+                    marker=dict(size=((df_cat_stats['pct_not_zero']+0.1)*50), opacity=0.5),
+                    name='Recall'
                 )
             ],
 
             'layout': {
-                'title': 'Training and Test Model Recall and Category Occurrence Rate',
-                #'yaxis': {
-                #    'title': "Count"
-                #},
-                #'xaxis': {
-                #    'title': "Category"
-                #}
+                'title': 'Model Fit and Category Occurrence Rate',
+                'yaxis': {
+                    'title': "Test set"
+                },
+                'xaxis': {
+                    'title': "Training set"
+                },
                 'margin': {'b':160}
             }
         }
